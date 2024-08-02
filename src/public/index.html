@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap Server</title>
+</head>
+<body>
+    <form id="form">
+        <input type="text" placeholder="Website..." id="website">
+        <input type="submit" value="Send">
+    </form>
+</body>
+<script>
+    const form = document.getElementById('form')
+    form.onsubmit = async (e)=>{
+        e.preventDefault()
+        const website = document.getElementById('website').value
+        try {
+            const response = await fetch('http://localhost:5000/sitemap',{
+                method:'POST',
+                body:JSON.stringify({website}),
+                headers:{
+                    'content-type':'application/xml'
+                }
+            })
+            const data = await response.json()
+            console.log(data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+</script>
+</html>
