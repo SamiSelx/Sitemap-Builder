@@ -1,11 +1,11 @@
 const axios = require('axios')
 const cheerio = require('cheerio')
 
-async function fetchLinks(url, visited,baseUrl) {
+async function fetchLinks(baseUrl, visited) {
     const links = new Set();
 
     // File (FIFO)
-    const queue = [url];
+    const queue = [baseUrl];
 
     while (queue.length > 0) {
         const currentUrl = queue.shift();
@@ -14,12 +14,11 @@ async function fetchLinks(url, visited,baseUrl) {
         visited.add(currentUrl);
         
         try {
-            if(currentUrl.includes('?')) continue
+            if(currentUrl.includes('?')) continue 
             links.add(currentUrl)
             const response = await axios.get(currentUrl);
             const html = response.data;
             const dom = cheerio.load(html);
-            
             dom('a').each((_, element) => {
                 let href = dom(element).attr('href');
                 // href startsWith / that's mean go to direct link

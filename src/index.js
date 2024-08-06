@@ -19,7 +19,7 @@ app.post('/sitemap',async (req,res)=>{
     }
     try {
         const visited = new Set();
-        const links = await fetchLinks(baseUrl, visited,baseUrl);
+        const links = await fetchLinks(baseUrl, visited);
         console.log('links after fetched ',links);
         const sitemapXml = generateSitemapXML(links)
         fs.writeFileSync('./src/public/sitemap.xml',sitemapXml)
