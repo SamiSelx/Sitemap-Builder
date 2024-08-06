@@ -10,25 +10,32 @@
         <input type="text" placeholder="Website..." id="website">
         <input type="submit" value="Send">
     </form>
+    <p id="status"></p>
 </body>
 <script>
     const form = document.getElementById('form')
-    form.onsubmit = async (e)=>{
+    form.addEventListener('submit',async (e)=>{
         e.preventDefault()
-        const website = document.getElementById('website').value
+        let baseUrl = document.getElementById('website').value
+        document.getElementById('status').innerHTML = "Loading..."
         try {
             const response = await fetch('http://localhost:5000/sitemap',{
                 method:'POST',
-                body:JSON.stringify({website}),
+                body:JSON.stringify({baseUrl}),
                 headers:{
-                    'content-type':'application/xml'
+                    'content-type':'application/json'
                 }
             })
-            const data = await response.json()
+            if(response.ok){
+                location.pathname = '/sitemap.xml'
+            }else{
+                document.getElementById('status').innerHTML = "Failed"
+            }
+            // const data = await response.json()
             console.log(data);
         } catch (error) {
             console.log(error);
         }
-    }
+    })
 </script>
 </html>
