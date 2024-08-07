@@ -18,6 +18,7 @@ open cmd
    npm run dev
       ```
       
-4. **Send Post Request with body 'baseUrl': http://localhost:5000/sitemap**
+4. **Send Post Request with body *baseUrl* : http://localhost:5000/sitemap**
+   *Or* **Open website http://localhost:5000/ && send request by Form **
    
 
